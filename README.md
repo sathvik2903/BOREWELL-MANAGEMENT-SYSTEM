@@ -1,23 +1,39 @@
-# Borewell Management System
+# Borewell Management System 
 
-A simple,effective RF-based communication system using the RCSwitch library to wirelessly monitor borewell activity or water usage between a **transmitter** and a **receiver** ESP8266 module.
+It's an **IoT-based motor management borewell system** via ESP8266 and Blynk. One can toggle **Manual** or **Automatic** mode with controlling the motor upon **ultrasonic water sensing**.
 
----
- Hardware Used
-- 2 × ESP8266 (NodeMCU boards)
-- RF Transmitter (433 MHz)
-- RF Receiver (433 MHz)
-- Breadboard, jumper wires
-- LED for status indication
+Features:
+- Automatic/Manual relay switch
+- Water sensing through ultrasonic sensor
+- Realtime monitoring and control using Blynk
+- Physical debounced button for manual and mode selection
+- Augmented gauge logic to track the levels better
 
----
-Transmitter:
-- Sends a number (0–100) every second via RF.
-- The number simulates sensor data or levels.
-- LED blinks each time data is sent.
+Hardware Used:
+- ESP8266 (NodeMCU)
+- Ultrasonic sensor (HC-SR04)
+- Relay Module (6HP)
+- Push buttons × 2
+- 10kΩ resistors (if not using INPUT_PULLUP)
+- Wires and breadboard
 
-Receiver:
-- Listens for RF signals.
-- Displays the received number in the serial monitor.
-- If no message is received in 2 seconds, a “Message NOT received!” warning is printed.
-- LED toggles on successful reception.
+Blynk Setup:
+- Virtual Pin `V1` – Relay Control
+- Virtual Pin `V2` – Mode Control (Auto/Manual)
+- Virtual Pin `V3` – Relay Status (Display)
+- Virtual Pin `V4` – Mode Status (Display)
+- Virtual Pin `V5` – Water Level Gauge
+
+Logic:
+- **Manual Mode**: Button or Blynk toggles relay
+- **Auto Mode**: Relay turns ON below 30%, OFF above 85%
+- **Relay Logic**: `HIGH` = ON, `LOW` = OFF (inverted)
+
+Getting Started
+1. Flash `code/borewell_management.ino` to ESP8266.
+2. Replace your `WiFi` and `Blynk` credentials.
+3. Connect components as per circuit.
+4. Use Blynk app for control & monitoring.
+
+License:
+MIT License © CH SATHVIK KUMAR
